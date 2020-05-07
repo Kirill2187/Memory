@@ -30,14 +30,17 @@ public class Field {
     public Card[][] field;
 
     public Card open = null;
-    public boolean isWaiting = false, isGameStopped = false;
-    public int score = 0;
+    public boolean isWaiting = false, isGameStopped = false, isFirstPlayersTurn = true;
+    public int score_1 = 0;
+    public int score_2 = 0;
     public int turns = 0;
+    public int playersCount;
 
-    public Field(String difficult, MemoryGame game, Stage stage) {
+    public Field(String difficult, MemoryGame game, Stage stage, int playersCount) {
         this.game = game;
         this.difficult = difficult;
         this.stage = stage;
+        this.playersCount = playersCount;
 
         init();
     }
@@ -138,14 +141,19 @@ public class Field {
         if (open.type.equals(card.type)) {
             open.isAlive = false;
             card.isAlive = false;
+            float to_x = isFirstPlayersTurn ? cardOff_x_1 : cardOff_x_2;
+            float to_y = isFirstPlayersTurn ? cardOff_y_1 : cardOff_y_2;
+            int playerScore = isFirstPlayersTurn ? score_1 : score_2;
             card.addAction(new SequenceAction(Actions.delay((Card.ROTATE_TIME + 400f) / 1000f),
-                    Actions.moveTo(cardOff_x_2, cardOff_y_2 + score * 5f, 1f, Interpolation.fastSlow)));
-            card.setZIndex(score);
-            score++;
+                    Actions.moveTo(to_x, to_y + playerScore * 5f, 1f, Interpolation.fastSlow)));
+            card.setZIndex(playerScore * 2);
             open.addAction(new SequenceAction(Actions.delay((Card.ROTATE_TIME + 300f) / 1000f),
-                    Actions.moveTo(cardOff_x_2, cardOff_y_2 + score * 5f, 1f, Interpolation.fastSlow)));
-            open.setZIndex(score);
-            score++;
+                    Actions.moveTo(to_x, to_y + playerScore * 5f + 5f, 1f, Interpolation.fastSlow)));
+            open.setZIndex(playerScore * 2 + 1);
+            if (isFirstPlayersTurn)
+                score_1++;
+            else
+                score_2++;
             open = null;
         }
         else {
@@ -156,6 +164,7 @@ public class Field {
                     card.startAnim();
                     open = null;
                     isWaiting = false;
+                    if (playersCount > 1) isFirstPlayersTurn = !isFirstPlayersTurn;
                 }
             }, (Card.ROTATE_TIME + 600f)  / 1000f);
             isWaiting = true;
@@ -163,7 +172,8 @@ public class Field {
     }
 
     public void restartGame() {
-        score = 0;
+        score_1 = 0;
+        score_2 = 0;
         turns = 0;
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {

@@ -4,7 +4,7 @@ public class DifficultControl {
 
     public static final int EASY_W = 4, EASY_H = 3, EASY_S = 80;
     public static final int NORMAL_W = 6, NORMAL_H = 4, NORMAL_S = 60;
-    public static final int HARD_W = 6, HARD_H = 6, HARD_S = 60;
+    public static final int HARD_W = 8, HARD_H = 4, HARD_S = 60;
     public static final int IMPOSSIBLE_W = 10, IMPOSSIBLE_H = 6, IMPOSSIBLE_S = 50;
 
     public static String[] CARDS = {"bear", "buffalo", "chick", "chicken", "cow", "crocodile",

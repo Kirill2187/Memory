@@ -26,12 +26,14 @@ public class GameScreen implements Screen {
 
     String difficult;
     Field field;
+    int playersCount;
 
     BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/font_big.fnt"));
 
-    public GameScreen(MemoryGame game, String difficult) {
+    public GameScreen(MemoryGame game, String difficult, int playersCount) {
         this.game = game;
         this.difficult = difficult;
+        this.playersCount = playersCount;
 
         batch = new SpriteBatch();
         viewport = new StretchViewport(game.WIDTH, game.HEIGHT);
@@ -50,7 +52,7 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
-                game.setScreen(MemoryGame.Screens.MenuScreen, "");
+                game.setScreen(new MenuScreen(game));
             }
         });
         stage.addActor(back);
@@ -88,7 +90,7 @@ public class GameScreen implements Screen {
         });
         stage.addActor(restart);
 
-        field = new Field(difficult, game, stage);
+        field = new Field(difficult, game, stage, playersCount);
     }
 
 
@@ -108,8 +110,12 @@ public class GameScreen implements Screen {
 
         batch.begin();
         font.draw(batch, "Turns - " + field.turns, 630f, game.HEIGHT - 20f);
-        font.draw(batch, "" + field.score / 2,
+        if (playersCount > 1) font.draw(batch, "" + field.score_2,
                 game.WIDTH - field.cardSize / 2f - (difficult.equals("Easy") ? 5:10), field.cardOff_y_2 - 10f);
+        font.draw(batch, "" + field.score_1,
+                field.cardSize / 2f - (difficult.equals("Easy") ? 5:10), field.cardOff_y_2 - 10f);
+        if (playersCount > 1) font.draw(batch, (field.isFirstPlayersTurn ? "First " : "Second ") +
+                    "players turn",250f, 20f);
         batch.end();
 
     }

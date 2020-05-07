@@ -7,9 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-import ru.memory.game.screens.GameScreen;
 import ru.memory.game.screens.IntroScreen;
-import ru.memory.game.screens.MenuScreen;
 
 public class MemoryGame extends Game {
 
@@ -20,26 +18,10 @@ public class MemoryGame extends Game {
 	public final int WIDTH = 800;
 	public final int HEIGHT = 450;
 
-	public enum Screens {IntroScreen, MenuScreen, GameScreen}
-
-	public void setScreen(Screens screen, String difficult) {
-		switch (screen) {
-			case GameScreen:
-				super.setScreen(new GameScreen(this, difficult));
-				break;
-			case MenuScreen:
-				super.setScreen(new MenuScreen(this));
-				break;
-			case IntroScreen:
-				super.setScreen(new IntroScreen(this));
-				break;
-		}
-	}
-	
 	@Override
 	public void create () {
 		load();
-		setScreen(Screens.IntroScreen, "");
+		setScreen(new IntroScreen(this));
 	}
 
 	private void load() {

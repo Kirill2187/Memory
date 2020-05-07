@@ -16,7 +16,7 @@ public class IntroScreen implements Screen {
 
     @Override
     public void show() {
-        game.setScreen(MemoryGame.Screens.MenuScreen, "");
+        game.setScreen(new MenuScreen(game));
     }
 
     @Override

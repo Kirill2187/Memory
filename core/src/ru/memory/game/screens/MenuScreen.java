@@ -36,15 +36,25 @@ public class MenuScreen extends InputAdapter implements Screen {
     }
 
     private void init() {
-        Button play = new Button("play1", "play2", "play3", 350, 205, 75, 75, game);
+        Button play = new Button("single1", "single2", "single3", 320, 205, 75, 75, game);
         play.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
-                game.setScreen(MemoryGame.Screens.GameScreen, list.getSelected());
+                game.setScreen(new GameScreen(game, list.getSelected(), 1));
             }
         });
         stage.addActor(play);
+
+        Button multi = new Button("multi1", "multi2", "multi3", 405, 205, 75, 75, game);
+        multi.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                dispose();
+                game.setScreen(new GameScreen(game, list.getSelected(), 2));
+            }
+        });
+        stage.addActor(multi);
 
         Button quit = new Button("quit1", "quit2", "quit3", 0f, 0f, 50f, 50f, game);
         quit.addListener(new ClickListener() {
@@ -58,7 +68,7 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         list = new List(game.skin, "default");
         list.setItems("Easy", "Normal", "Hard", "Impossible");
-        list.setWidth(200f);
+        list.setWidth(190f);
         list.setHeight(100f);
         list.setPosition(game.WIDTH / 2f - list.getWidth() / 2f, 50f);
         stage.addActor(list);
