@@ -10,9 +10,9 @@ import ru.memory.game.MemoryGame;
 
 public class Card extends Actor {
 
-    float status = -1f;
-    int animated = 0;
-    final static float ROTATE_TIME = 500f;
+    public float status = -1f;
+    public int animated = 0;
+    public final static float ROTATE_TIME = 500f;
     float size;
 
     Sprite sprite, cardBack;

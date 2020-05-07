@@ -29,8 +29,8 @@ public class Field {
 
     public Card[][] field;
 
-    Card open = null;
-    boolean isWaiting = false;
+    public Card open = null;
+    public boolean isWaiting = false, isGameStopped = false;
     public int score = 0;
     public int turns = 0;
 
@@ -78,11 +78,11 @@ public class Field {
         cardOff_y_2 = game.HEIGHT / 2f - cardSize / 2f - (width * height / 4f * 5f);
         cardOff_y_1 = game.HEIGHT / 2f - cardSize / 2f - (width * height / 4f * 5f);
 
+        field = new Card[height][width];
         generateCards();
     }
 
     private void generateCards() {
-        field = new Card[height][width];
         int cardsCount = width * height / 2;
 
         List<String> cards = Arrays.asList(DifficultControl.CARDS);
@@ -93,6 +93,14 @@ public class Field {
             cardsSet.add(cards.get(i));
         }
         Collections.shuffle(cardsSet);
+
+        for (int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j) {
+                if (field[i][j] != null) field[i][j].remove();
+            }
+        }
+
+        isGameStopped = false;
 
         for (int i = 0; i < cardsCount * 2; ++i) {
             String type = cardsSet.get(i);
@@ -116,7 +124,7 @@ public class Field {
     }
 
     public void touch(final Card card) {
-        if (card.status != -1 || !card.isAlive || isWaiting)
+        if (card.status != -1 || !card.isAlive || isWaiting || isGameStopped)
             return;
         card.startAnim();
 
@@ -152,6 +160,23 @@ public class Field {
             }, (Card.ROTATE_TIME + 600f)  / 1000f);
             isWaiting = true;
         }
+    }
+
+    public void restartGame() {
+        score = 0;
+        turns = 0;
+        for (int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j) {
+                field[i][j].setZIndex(0);
+                field[i][j].addAction(Actions.moveTo(start_x, start_y, 0.8f, Interpolation.smoother));
+            }
+        }
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                generateCards();
+            }
+        }, 0.8f);
     }
 
 }

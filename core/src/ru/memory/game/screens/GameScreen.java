@@ -8,10 +8,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import ru.memory.game.MemoryGame;
 import ru.memory.game.logic.Button;
+import ru.memory.game.logic.Card;
 import ru.memory.game.logic.Field;
 
 public class GameScreen implements Screen {
@@ -52,6 +54,39 @@ public class GameScreen implements Screen {
             }
         });
         stage.addActor(back);
+
+        Button restart = new Button("restart1", "restart2", "restart3", game.WIDTH - 50f,
+                0f, 50f, 50f, game);
+        restart.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (field.isGameStopped)
+                    return;
+                field.isGameStopped = true;
+                for (int i = 0; i < field.height; ++i) {
+                    for (int j = 0; j < field.width; ++j) {
+                        field.field[i][j].animated = 1;
+                    }
+                }
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        for (int i = 0; i < field.height; ++i) {
+                            for (int j = 0; j < field.width; ++j) {
+                                if (field.field[i][j].status != -1) field.field[i][j].startAnim();
+                            }
+                        }
+                        Timer.schedule(new Timer.Task() {
+                            @Override
+                            public void run() {
+                                field.restartGame();
+                            }
+                        }, (Card.ROTATE_TIME + 100f) / 1000f);
+                    }
+                }, (Card.ROTATE_TIME + 1200f) / 1000f);
+            }
+        });
+        stage.addActor(restart);
 
         field = new Field(difficult, game, stage);
     }
