@@ -123,7 +123,8 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
+        batch.dispose();
     }
 
 }

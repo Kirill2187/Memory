@@ -192,6 +192,8 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         font.dispose();
+        stage.dispose();
+        batch.dispose();
     }
 
 }
