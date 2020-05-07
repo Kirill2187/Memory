@@ -1,0 +1,48 @@
+
+skin.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+button1
+  rotate: false
+  xy: 1, 76
+  size: 147, 64
+  orig: 147, 64
+  offset: 0, 0
+  index: -1
+button2
+  rotate: false
+  xy: 515, 993
+  size: 147, 64
+  orig: 147, 64
+  offset: 0, 0
+  index: -1
+button3
+  rotate: false
+  xy: 1023, 1104
+  size: 147, 64
+  orig: 147, 64
+  offset: 0, 0
+  index: -1
+font
+  rotate: false
+  xy: 515, 1059
+  size: 506, 109
+  orig: 506, 109
+  offset: 0, 0
+  index: -1
+font_big_0
+  rotate: false
+  xy: 1, 656
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+font_big_1
+  rotate: false
+  xy: 1, 142
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
