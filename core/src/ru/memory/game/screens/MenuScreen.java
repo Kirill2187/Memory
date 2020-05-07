@@ -15,14 +15,14 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import ru.memory.game.MemoryGame;
 import ru.memory.game.logic.Button;
 
-public class MenuScreen extends InputAdapter implements Screen {
+class MenuScreen extends InputAdapter implements Screen {
 
-    MemoryGame game;
+    private MemoryGame game;
 
-    Stage stage;
-    StretchViewport viewport;
-    SpriteBatch batch;
-    List<String> list;
+    private Stage stage;
+    private StretchViewport viewport;
+    private SpriteBatch batch;
+    private List<String> list;
 
     public MenuScreen(MemoryGame game) {
         this.game = game;
@@ -66,7 +66,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         });
         stage.addActor(quit);
 
-        list = new List(game.skin, "default");
+        list = new List<>(game.skin, "default");
         list.setItems("Easy", "Normal", "Hard", "Impossible");
         list.setWidth(190f);
         list.setHeight(100f);

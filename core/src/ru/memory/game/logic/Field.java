@@ -15,26 +15,33 @@ import ru.memory.game.MemoryGame;
 
 public class Field {
 
-    MemoryGame game;
-    String difficult;
-    Stage stage;
+    private MemoryGame game;
+    private String difficult;
+    private Stage stage;
 
     public int width, height;
-    public float x, y, cardSize;
-    public final float SPACE = 10f;
+    private float x;
+    private float y;
+    public float cardSize;
+    private final float SPACE = 10f;
 
-    public float start_x, start_y;
-    public float cardOff_x_2, cardOff_y_2;
-    public float cardOff_x_1, cardOff_y_1;
+    private float start_x;
+    private float start_y;
+    private float cardOff_x_2;
+    public float cardOff_y_2;
+    private float cardOff_x_1;
+    private float cardOff_y_1;
 
     public Card[][] field;
 
-    public Card open = null;
-    public boolean isWaiting = false, isGameStopped = false, isFirstPlayersTurn = true;
+    private Card open = null;
+    private boolean isWaiting = false;
+    public boolean isGameStopped = false;
+    public boolean isFirstPlayersTurn = true;
     public int score_1 = 0;
     public int score_2 = 0;
     public int turns = 0;
-    public int playersCount;
+    private int playersCount;
 
     public Field(String difficult, MemoryGame game, Stage stage, int playersCount) {
         this.game = game;
@@ -46,25 +53,27 @@ public class Field {
     }
 
     private void init() {
-        if (difficult.equals("Easy")) {
-            cardSize = DifficultControl.EASY_S;
-            width = DifficultControl.EASY_W;
-            height = DifficultControl.EASY_H;
-        }
-        else if (difficult.equals("Normal")) {
-            cardSize = DifficultControl.NORMAL_S;
-            width = DifficultControl.NORMAL_W;
-            height = DifficultControl.NORMAL_H;
-        }
-        else if (difficult.equals("Hard")) {
-            cardSize = DifficultControl.HARD_S;
-            width = DifficultControl.HARD_W;
-            height = DifficultControl.HARD_H;
-        }
-        else {
-            cardSize = DifficultControl.IMPOSSIBLE_S;
-            width = DifficultControl.IMPOSSIBLE_W;
-            height = DifficultControl.IMPOSSIBLE_H;
+        switch (difficult) {
+            case "Easy":
+                cardSize = DifficultControl.EASY_S;
+                width = DifficultControl.EASY_W;
+                height = DifficultControl.EASY_H;
+                break;
+            case "Normal":
+                cardSize = DifficultControl.NORMAL_S;
+                width = DifficultControl.NORMAL_W;
+                height = DifficultControl.NORMAL_H;
+                break;
+            case "Hard":
+                cardSize = DifficultControl.HARD_S;
+                width = DifficultControl.HARD_W;
+                height = DifficultControl.HARD_H;
+                break;
+            default:
+                cardSize = DifficultControl.IMPOSSIBLE_S;
+                width = DifficultControl.IMPOSSIBLE_W;
+                height = DifficultControl.IMPOSSIBLE_H;
+                break;
         }
 
         float size_x = width * cardSize + SPACE * (width - 1);
@@ -115,12 +124,16 @@ public class Field {
 
             stage.addActor(field[x][y]);
             float delay = 1f;
-            if (difficult.equals("Normal"))
-                delay = 0.8f;
-            else if (difficult.equals("Hard"))
-                delay = 0.7f;
-            else if (difficult.equals("Impossible")) {
-                delay = 0.45f;
+            switch (difficult) {
+                case "Normal":
+                    delay = 0.8f;
+                    break;
+                case "Hard":
+                    delay = 0.7f;
+                    break;
+                case "Impossible":
+                    delay = 0.45f;
+                    break;
             }
             field[x][y].addAction(new SequenceAction(Actions.delay(i * 1f / 6f), Actions.moveTo(to_x, to_y, delay, Interpolation.fastSlow)));
         }

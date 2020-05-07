@@ -13,12 +13,14 @@ public class Card extends Actor {
     public float status = -1f;
     public int animated = 0;
     public final static float ROTATE_TIME = 500f;
-    float size;
+    private float size;
 
-    Sprite sprite, cardBack;
-    Field field;
+    private Sprite sprite;
+    private Sprite cardBack;
+    private Field field;
     public String type;
-    public int arr_x, arr_y;
+    private int arr_x;
+    private int arr_y;
 
     public boolean isAlive = true;
 

@@ -19,23 +19,23 @@ import ru.memory.game.logic.Card;
 import ru.memory.game.logic.DifficultControl;
 import ru.memory.game.logic.Field;
 
-public class GameScreen implements Screen {
+class GameScreen implements Screen {
 
-    MemoryGame game;
+    private MemoryGame game;
 
-    Stage stage;
-    StretchViewport viewport;
-    SpriteBatch batch;
+    private Stage stage;
+    private StretchViewport viewport;
+    private SpriteBatch batch;
 
-    String difficult;
-    Field field;
-    int playersCount;
-    int finalScore;
+    private String difficult;
+    private Field field;
+    private int playersCount;
+    private int finalScore;
 
-    BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/font_big.fnt"));
-    BitmapFont big_font = new BitmapFont(Gdx.files.internal("fonts/font_big.fnt"));
-    Button restart;
-    boolean isGameEnded = false;
+    private BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/font_big.fnt"));
+    private BitmapFont big_font = new BitmapFont(Gdx.files.internal("fonts/font_big.fnt"));
+    private Button restart;
+    private boolean isGameEnded = false;
 
     public GameScreen(MemoryGame game, String difficult, int playersCount) {
         this.game = game;
