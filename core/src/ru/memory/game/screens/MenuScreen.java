@@ -76,6 +76,12 @@ public class MenuScreen extends InputAdapter implements Screen {
         Label memory = new Label("Memory", game.skin);
         memory.setPosition(game.WIDTH / 2f - memory.getWidth() / 2f, game.HEIGHT - memory.getHeight());
         stage.addActor(memory);
+
+        Label best = new Label("Best score is " +
+                Gdx.app.getPreferences("Memory Game").getInteger("bestScore", 0), game.skin, "small");
+        best.setPosition(game.WIDTH / 2f - best.getWidth() / 2f,
+                game.HEIGHT - memory.getHeight() - best.getHeight() - 50f);
+        stage.addActor(best);
     }
 
     @Override

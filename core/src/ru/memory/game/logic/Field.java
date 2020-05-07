@@ -150,10 +150,16 @@ public class Field {
             open.addAction(new SequenceAction(Actions.delay((Card.ROTATE_TIME + 300f) / 1000f),
                     Actions.moveTo(to_x, to_y + playerScore * 5f + 5f, 1f, Interpolation.fastSlow)));
             open.setZIndex(playerScore * 2 + 1);
-            if (isFirstPlayersTurn)
-                score_1++;
-            else
-                score_2++;
+            final boolean firstTurn = isFirstPlayersTurn;
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    if (firstTurn)
+                        score_1++;
+                    else
+                        score_2++;
+                }
+            },1f);
             open = null;
         }
         else {

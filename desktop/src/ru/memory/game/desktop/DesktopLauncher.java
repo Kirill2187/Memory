@@ -10,8 +10,8 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
 		config.resizable = true;
-		config.width = 16 * 75;
-		config.height = 9 * 75;
+		config.width = 16 * 60;
+		config.height = 9 * 60;
 		config.title = "Memory";
 
 		new LwjglApplication(new MemoryGame(), config);
