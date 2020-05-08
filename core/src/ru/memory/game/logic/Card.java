@@ -17,19 +17,14 @@ public class Card extends Actor {
 
     private Sprite sprite;
     private Sprite cardBack;
-    private Field field;
     public String type;
-    private int arr_x;
-    private int arr_y;
 
     public boolean isAlive = true;
 
     public Card(float x, float y, float size, String type, MemoryGame game, final Field field, int arr_x, int arr_y) {
         super();
         this.size = size;
-        this.field = field;
         this.type = type;
-        this.arr_x = arr_x; this.arr_y = arr_y;
 
         setPosition(x, y);
         setSize(size, size);
